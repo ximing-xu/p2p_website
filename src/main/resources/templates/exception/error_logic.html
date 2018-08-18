@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../css/bootstrap/css/bootstrap.css">
+<script type="text/javascript" src="../js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../css/bootstrap/js/bootstrap.min.js"></script>
+<title>逻辑错误</title>
+</head>
+<body>
+	<!-- 网页头信息 -->
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand disabled">P2P借贷平台</a>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
+				<li class="active"><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;Simon</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-log-out"></span>&nbsp;注销</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-headphones"></span>&nbsp;客服</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<h1 class="text-danger lead">页面出现逻辑错误,请查证后再尝试访问!</h1>
+				
+				<div class="text-waring">
+					错误代码:<strong>[[${error.errorCode}]]</strong>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<div class="thumbnail" style="width:400px;">
+					<img alt="~~~~" src="../img/crying.jpg" class="img-thumbnail">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+<!-- footer -->
+	<div class="col-sm-12" style="border-top:1px dotted black;background-color:	#F0F0F0">
+		<div class="row ">
+			<div class="text-left col-sm-6" style="padding-left: 200px;">
+				<br />
+				<p>版权所有：&emsp;广州暨南大学化学与材料学院高分子科学与工程2014级Simon Xu</p>
+				<p>地&emsp;&emsp;址：&emsp;广州市番禺区兴业大道东855号</p>
+				<p>电&emsp;&emsp;话：&emsp; 15626474469</p>
+				<p>邮&emsp;&emsp;箱：&emsp;jnu_xuximing@qq.com</p>
+				<br />
+			</div>
+			<div class="col-sm-5 col-sm-offset-1">
+				<br/>
+				<div class="thumbnail" style="width:250px;">
+					<img alt="jnu_photo" src="./img/jnu.jpg" class="img-responsive img-rounded">
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

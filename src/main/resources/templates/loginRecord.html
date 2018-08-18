@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common :: common_header(~{::title},~{::link},~{::script})">
+<title>登录记录</title>
+<script type="text/javascript">
+	$(function(){
+		console.debug("hello world");
+		
+	});	
+</script>
+<link><!-- 一定要有在这里占位 -->
+</head>
+<body>
+	<!-- 网页一级导航栏信息 -->
+	<nav th:insert="common :: first_nav_head"></nav>
+	<!-- 网页 二级导航栏 -->	
+	<div th:insert="common :: second_nav_head"></div>
+	
+	
+		<div class="container">
+		<br />
+		<div class="row">
+			<!-- 左侧条栏 -->
+			<div th:insert="common :: left_menu"></div>
+			
+			<!-- 信息呈现页面-->
+			<div class="col-md-9" style="border: 1px dotted black">
+				<div class="row">
+					<h4><strong>[[${user.username}]]</strong>的登录记录</h4>
+					<div>
+						<table class="table table-striped table-bordered">
+							<thead>
+								<tr>
+									<td>登录人</td>
+									<td>登录IP</td>
+									<td>登录时间</td>
+									<td>登录状态</td>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="item : ${pageList.result}">
+									<td>[[${item.username}]]</td>
+									<td>[[${item.ip}]]</td>
+									<td>[[${#calendars.format(item.loginDate,'yyyy/MM/dd HH:mm:ss')}]]</td>
+									<td><span th:if="${item.state eq 0}">登录成功</span> <span th:unless="${item.state eq 0}">登录失败</span></td>
+									
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- 分页条 -->
+				<!-- <div class="row">
+					<div class="col-md-6 col-md-offset-3">
+						<ul class="pagination pagination-lg">
+							<li><a href="#">&laquo;</a></li>
+							<li><a href="#">1</a></li>
+							<li><a href="#">2</a></li>
+							<li><a href="#">3</a></li>
+							<li><a href="#">4</a></li>
+							<li><a href="#">5</a></li>
+							<li><a href="#">&raquo;</a></li>
+						</ul>
+					</div>
+				</div> -->
+
+			</div>
+		</div>
+		<!--row1  -->
+	</div>
+	<!-- container1 -->
+	<br/>
+	<!-- footer -->
+	<div th:insert="common :: footer"></div>
+</body>
+</html>

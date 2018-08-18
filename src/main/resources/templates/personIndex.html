@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="common :: common_header(~{::title},~{::link},~{::script})">
+<title>个人中心</title>
+<script type="text/javascript">
+	$(function(){
+		console.debug("hello world");
+		
+	});	
+</script>
+<link><!-- 一定要有在这里占位 -->
+</head>
+<body>
+	<!-- 网页一级导航栏信息 -->
+	<nav th:insert="common :: first_nav_head"></nav>
+	<!-- 网页 二级导航栏 -->	
+	<div th:insert="common :: second_nav_head"></div>
+	
+	
+		<div class="container">
+		<br />
+		<div class="row">
+			<!-- 左侧条栏 -->
+			<div th:insert="common :: left_menu"></div>
+			
+			<!-- 信息呈现页面-->
+			<div class="col-md-9" style="border: 1px dotted black">
+				<!-- 用户基本信息 -->
+				<div class="row" style="border-bottom: 1px dotted black;">
+					<div class="col-sm-4" >
+						<div style="width: 250px;">
+							<img alt="user's head image" src="./img/mflower.jpg" class="img-thumbnail img-responsive">
+						</div>
+					</div>
+					<div class="col-sm-4 ">
+						<br /> <br /> <br />
+						<p>
+							用户名：<span><strong>[[${user.username}]]</strong></span> <br /> 最后登录时间：<span>2018/4/30 15:14</span>
+						</p>
+						<!-- 账户提现和充值按钮 -->
+						<br />
+						<div>
+
+							<a href="#" class="btn btn-primary btn-large">账户充值</a>
+							<!--  -->
+							&nbsp;&nbsp;&nbsp;&nbsp; <a href="#" class="btn btn-danger btn-large">账户提现</a>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<div>
+							<br/>
+							<br/>
+							<br/>
+							<a href="#">公&nbsp;&nbsp;&nbsp;&nbsp;告<span class="glyphicon glyphicon-envelope"></span>&nbsp;
+            			<span class="badge">10</span></a>
+            				<br/>
+            				<br/>
+							<a href="#">系统消息<span class="glyphicon glyphicon-envelope"></span>&nbsp;
+            			<span class="badge">42</span></a>
+						</div>
+					</div>
+				</div>
+				<!-- 1st row end -->
+				<!-- 用户账户信息 -->
+				<div class="row" style="border-bottom: 1px dotted black;" >
+					<div style="padding-left:50px;">
+						<br/>
+						<br/>
+						<div class="row">
+							<div class="col-sm-4">
+								<p>
+									账户总额：<span>[[${userAccount.usableAmount}+${userAccount.freezedAmount}]]</span>
+								</p>
+							</div>
+							<div class="col-sm-4">
+								<p>
+									可用金额：<span>[[${userAccount.usableAmount}]]</span>
+								</p>
+							</div>
+							<div class="col-sm-4">
+								<p>
+									冻结金额：<span>[[${userAccount.freezedAmount}]]</span>
+								</p>
+							</div>
+						</div>
+						<br/>
+						<div class="row">
+							<div class="col-sm-4">
+								<p>
+									待收利息：<span>[[${userAccount.unReceivedInterest}]]</span>
+								</p>
+							</div>
+							<div class="col-sm-4">
+								<p>
+									待收本金：<span>[[${userAccount.unReceivedPrincipal}]]</span>
+								</p>
+							</div>
+							<div class="col-sm-4">
+								<p>
+									待还本息：<span>[[${userAccount.unReturnAmount}]]</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				<br/>
+				</div>
+				<!-- 用户状态信息 -->
+				<br/>
+				<div class="row">
+					<div class="col-sm-4">
+						<h4>实名认证</h4>
+						<p class="text-success" th:if="${userInfo.realNameAuth}">已认证<span class="glyphicon glyphicon-ok"></span></p>
+						<div th:unless="${userInfo.realNameAuth}">
+						暂未认证：<a href="#" class="btn btn-default">马上认证</a>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<h4>手机绑定</h4>
+						<p class="text-success" th:if="${userInfo.bindPhone}">已绑定<span class="glyphicon glyphicon-ok"></span></p>
+						<div th:unless="${userInfo.bindPhone}">
+						暂未绑定：<a href="#" class="btn btn-default">马上绑定</a>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<h4>邮箱绑定</h4>
+						<p class="text-success" th:if="${userInfo.bindEmail}">已绑定<span class="glyphicon glyphicon-ok"></span></p>
+						<div th:unless="${userInfo.bindEmail}">
+						暂未绑定：<a href="#" class="btn btn-default">马上绑定</a>
+						</div>
+					</div>
+					<div class="col-sm-4">
+						<h4>风控材料认证</h4>
+						<p class="text-success">已认证<span class="glyphicon glyphicon-ok"></span></p>
+						<div>
+						暂未认证：<a href="#" class="btn btn-default">马上认证</a>
+						</div>
+					</div>
+					
+				</div>
+
+			</div>
+		</div>
+		<!--row1  -->
+	</div>
+	<!-- container1 -->
+	<br/>
+	<!-- footer -->
+	<div th:insert="common :: footer"></div>
+</body>
+</html>

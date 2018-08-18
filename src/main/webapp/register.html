@@ -1,0 +1,209 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>注册</title>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="./css/bootstrap/css/bootstrap.css">
+<script type="text/javascript" src="./js/jquery/jquery.js"></script>
+<script type="text/javascript" src="./js/jquery-validation/jquery.validate.js"></script>
+<script type="text/javascript" src="./js/jquery-validation/localization/messages_zh.js"></script>
+<script type="text/javascript" src="./js/jquery-form/jquery.form.js"></script>
+<script type="text/javascript" src="./css/bootstrap/js/bootstrap.min.js"></script>
+<!-- 这个是用来提供弹出框的，是jQuery和bootstrap的合体版本 -->
+<script type="text/javascript" src="./js/jquery-bootstrap/jquery.bootstrap.min.js"></script>
+
+<script type="text/javascript">
+	$(function() {
+		//添加jQuery-validate的校验规则
+		//远程校验用户名是否重复
+		$.validator.addMethod("checkUsername", function(value, element) {
+			var ret = false;
+			$.ajax({
+				dataType : "json",
+				type : "post",
+				url : "/checkUsername",
+				data : {
+					username : value
+				},
+				async : false,
+				success : function(data) {
+					ret = data.success;
+				}
+			});
+			return ret;
+		}, "用户名已经存在!");
+
+		$("#register_form").validate({
+			rules : {
+				"username" : {
+					required : true,
+					rangelength : [ 3, 16 ],
+					remote:{
+						type:"post",
+						url:"isWithoutUsername"
+					}
+				},
+				"password" : {
+					required : true,
+					rangelength : [ 3, 16 ]
+				},
+				"confirmPassword" : {
+					required : true,
+					equalTo : "#password"
+				}
+
+			},
+			messages : {
+				"username" : {
+					required : "请输入用户名",
+					rangelength : "用户名长度为{0}~{1}",
+					remote:"用户名已存在"
+				},
+				"password" : {
+					required : "请输入密码",
+					rangelength : "密码长度为{0}~{1}"
+				},
+				"confirmPassword" : {
+					required : "请确认密码",
+					equalTo : "两次密码输入不一致"
+				}
+			},
+			errorClass : "text-danger",
+			highlight : function(element, errorClass) {
+				$(element).closest(".form-group").addClass("has-error");
+			},
+			unhighlight : function(element, errorClass) {
+				$(element).closest(".form-group").removeClass("has-error");
+			},
+			//error layout
+			errorPlacement : function(error, element) {
+				error.appendTo(element.parent().parent());
+			},
+			errorElement : "span",
+			submitHandler : function(form) {
+				$(form).ajaxSubmit(function(data) {
+					if (data.success) {
+						
+						$.messager.confirm("提示", "注册成功,请重新登录系统!", function() {
+							window.location.href = "/login.html";
+						});
+					} else {
+						
+						$.messager.popup("用户名已经存在");
+						
+					}
+					return false;
+				});
+			}
+
+		});
+
+	});
+</script>
+</head>
+<body>
+	<!-- 网页头信息 -->
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand disabled">P2P借贷平台</a>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="index.html"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
+				<li class="active"><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;注册</a></li>
+				<li><a href="login.html"><span class="glyphicon glyphicon-log-in"></span>&nbsp;登录</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-headphones"></span>&nbsp;客服</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<!-- 注册表单 -->
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h2>P2P用户注册页面</h2>
+			</div>
+			<br />
+			<div class="col-md-6 col-md-offset-3">
+				<div class="col-sm-offset-1 text-left">
+					<p>提示：请填写注册信息，点击《同意协议并注册》即可完成注册</p>
+				</div>
+				<form action="register" class="form form-horizontal" id="register_form" method="post">
+					<div class="form-group">
+						<label for="username" class="control-label col-sm-3">用户名：</label>
+						<div class="col-sm-9">
+							<div class="col-sm-8">
+								<input id="username" name="username" class="form-control" type="text" placeholder="请填写用户名"> <span
+									class="help-block">用户名长度为3~16位</span>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<label for="password" class="control-label col-sm-3">密码：</label>
+						<div class="col-sm-9">
+							<div class="col-sm-8">
+								<input id="password" name="password" class="form-control" type="password" placeholder="请填写密码"> <span
+									class="help-block">密码为3~16位字符，使用数字、字母、符号密码安全性更高</span>
+							</div>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<label for="confirmPassword" class="control-label col-sm-3">确认密码：</label>
+						<div class="col-sm-9">
+							<div class="col-sm-8">
+								<input id="confirmPassword" name="confirmPassword" class="form-control" type="password" placeholder="请填写密码"> <span
+									class="help-block">请确认密码</span>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-offset-3 col-sm-3">
+						<button type="reset" class="btn btn-default btn-block">重&nbsp;置</button>
+					</div>
+					<div class=" col-sm-4">
+						<button type="submit" class="btn btn-primary btn-block">同意协议并注册</button>
+					</div>
+				</form>
+			</div>
+
+		</div>
+		<br />
+		<div class="row">
+			<div class="col-sm-6 col-sm-offset-4">
+				<div class="col-sm-4">
+					&lt;&lt;<a href="#">用户协议书</a>&gt;&gt;
+				</div>
+				<div class="col-sm-5">
+					<a href="login.html">已有账号，马上登录</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<br />
+	<br />
+	<br />
+	<!-- footer -->
+	<div class="col-sm-12" style="border-top: 1px dotted black; background-color: #F0F0F0">
+		<div class="row ">
+			<div class="text-left col-sm-6" style="padding-left: 200px;">
+				<br />
+				<p>版权所有：&emsp;广州暨南大学化学与材料学院高分子科学与工程2014级Simon Xu</p>
+				<p>地&emsp;&emsp;址：&emsp;广州市番禺区兴业大道东855号</p>
+				<p>电&emsp;&emsp;话：&emsp; 15626474469</p>
+				<p>邮&emsp;&emsp;箱：&emsp;jnu_xuximing@qq.com</p>
+			</div>
+			<div class="col-sm-5 col-sm-offset-1">
+				<br />
+				<div class="thumbnail" style="width: 250px;">
+					<img alt="jnu_photo" src="./img/jnu.jpg" class="img-responsive img-rounded">
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

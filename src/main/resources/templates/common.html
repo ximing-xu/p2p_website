@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<!-- 公共的头部文件 -->
+<head th:fragment="common_header(title,link,script)">
+
+<meta charset="UTF-8">
+<link rel="stylesheet" href="../css/bootstrap/css/bootstrap.css">
+<script type="text/javascript" src="../js/jquery/jquery.js"></script>
+<script type="text/javascript" src="../css/bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript" th:inline="javascript">
+	$(function(){
+		
+		$([[${currentURL}]]).addClass("active");
+	});
+</script>
+
+<title th:replace="${title}">The awesome application</title>
+<th:block th:replace="${link}" />
+<th:block th:replace="${script}"/>
+
+</head>
+
+
+<body>
+	<!-- 网页一级导航栏信息 -->
+	<nav class="navbar navbar-inverse" th:fragment="first_nav_head">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand disabled">P2P借贷平台</a>
+			</div>
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="/index.html"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a></li>
+				<li class="active"><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;<span th:text="${user.username}">Simon</span></a></li>
+				<li><a href="logout"><span class="glyphicon glyphicon-log-out"></span>&nbsp;注销</a></li>
+				<li><a href="#"><span class="glyphicon glyphicon-headphones"></span>&nbsp;客服</a></li>
+			</ul>
+		</div>
+	</nav>
+
+	<!-- 网页二级导航栏信息  -->
+	<div class="container" th:fragment="second_nav_head">
+		<div class="row" id="navigator2">
+			<div class="col-sm-6 " style="margin-left: 20px;">
+				<ul class="nav nav-pills">
+					<li><a href="#">我要借款</a></li>
+					<li><a href="#">我要投资</a></li>
+					<li id="personIndex" class="personIndex active"><a href="#">个人中心</a></li>
+					<li ><a href="#">新手指引</a></li>
+					<li><a href="#">关于我们</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!-- 左侧条栏 -->
+	<div th:fragment="left_menu" id="left_menu">
+
+				<div class="col-md-3">
+					<div class="row">
+						<div class=" col-sm-8 col-sm-offset-2" style="border: 1px dotted black;">
+							<div class="bg-info"></div>
+							<div>
+								<div style="border-bottom: 1px dotted black;">
+									<h4>借贷服务</h4>
+								</div>
+								<ul class="nav nav-pills nav-stacked text-center">
+									<li><a href="#">投标明细</a></li>
+									<li><a href="#">收款明细</a></li>
+									<li><a href="#">借款明细</a></li>
+									<li><a href="#">还款明细</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- 借款 row1 -->
+					<div class="row">
+						<div class=" col-sm-8 col-sm-offset-2" style="border: 1px dotted black;">
+							<div>
+								<div style="border-bottom: 1px dotted black;">
+									<h4>我的账户</h4>
+								</div>
+								<ul class="nav nav-pills nav-stacked text-center">
+									<li id="userInfo" class="userInfo personIndex"><a href="#">账户信息</a></li>
+									<li><a href="#">风控材料认证</a></li>
+									<li><a href="#">实名认证</a></li>
+									<li><a href="#">个人资料</a></li>
+									<li id="loginRecord" class="loginRecord"><a href="loginRecord">登录记录</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- 我的账户 row2 -->
+					<div class="row">
+						<div class=" col-sm-8 col-sm-offset-2" style="border: 1px dotted black;">
+
+							<div>
+								<div style="border-bottom: 1px dotted black;">
+									<h4>资产详情</h4>
+								</div>
+								<ul class="nav nav-pills nav-stacked text-center">
+									<li><a href="#">账户充值</a></li>
+									<li><a href="#">账户提现</a></li>
+									<li><a href="#">账户流水</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<!-- 资产详情 row3 -->
+				</div>
+			</div>
+	
+	<!-- 网页脚footer -->
+	<div th:fragment="footer" class="col-sm-12" style="border-top:1px dotted black;background-color:	#F0F0F0">
+		<div class="row ">
+			<div class="text-left col-sm-6" style="padding-left: 200px;">
+				<br />
+				<p>版权所有：&emsp;广州暨南大学化学与材料学院高分子科学与工程2014级Simon Xu&copy;</p>
+				<p>地&emsp;&emsp;址：&emsp;广州市番禺区兴业大道东855号</p>
+				<p>电&emsp;&emsp;话：&emsp; 15626474469</p>
+				<p>邮&emsp;&emsp;箱：&emsp;jnu_xuximing@qq.com</p>
+				<br />
+			</div>
+			<div class="col-sm-5 col-sm-offset-1">
+				<br/>
+				<div class="thumbnail" style="width:250px;">
+					<img alt="jnu_photo" src="./img/jnu.jpg" class="img-responsive img-rounded">
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+</body>
+
+</html>
